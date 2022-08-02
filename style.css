@@ -1,0 +1,101 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #050517;
+    color: #050517;
+    height: 85vh;
+    width: 100vw;
+    min-height: 550px;
+    min-width: 800px;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: px;
+    width: 395px;
+    height: 450px;
+    padding: 30px 0 30px 0;
+    border-radius: 30px;
+    border: #A4A8AD solid;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    height: 16.66%;
+}
+
+#display {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 283px;
+    height: 60%;
+    color: #D3D5D7;
+    padding: 0 0 2px 0;
+    font-size: 31.5px;
+    font-family: "JetBrains Mono",monospace;
+}
+
+
+/* Buttons section */
+/* from https://getcssscan.com/css-buttons-examples */
+.button-30 {
+  align-items: center;
+  appearance: none;
+  background-color: #F0DA99;
+  border-radius: 20px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#747474 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #050517;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 57px;
+  width: 57px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .12s,transform .12s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 22px;
+}
+
+.button-30:active {
+  box-shadow: 0 3px 7px;
+  transform: translateY(2px);
+}
+
+.button-30.long-button {
+    width: 134px;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.red {
+    background-color: #D26844;
+}
+
+.orange {
+    background-color: #E5A743;
+}
