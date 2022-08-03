@@ -1,3 +1,9 @@
+html {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 body {
     display: flex;
     align-items: center;
@@ -5,9 +11,9 @@ body {
     background-color: #050517;
     color: #050517;
     height: 90vh;
-    width: 100vw;
+    width: 80vw;
     min-height: 650px;
-    min-width: 800px;
+    min-width: 600px;
     margin: 0;
     transform: scale(1.2);
 }
@@ -98,6 +104,6 @@ body {
     background-color: #D26844;
 }
 
-.orange {
+.orange, #inverse, #equality {
     background-color: #E5A743;
 }
