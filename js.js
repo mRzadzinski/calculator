@@ -9,7 +9,7 @@ const display = document.querySelector('#display');
 // Typing numbers
 const yellowButtons = document.querySelectorAll('.yellow');
 yellowButtons.forEach(button => button.addEventListener('click', (e) => {
-    if (display.textContent.length >= 11) return;
+    if (display.textContent.length > 11) return;
     if (isNaN(display.textContent)) return;
 
     // If operator was clicked, type new number on the display
@@ -18,12 +18,14 @@ yellowButtons.forEach(button => button.addEventListener('click', (e) => {
             display.textContent = '';
             operatorClicked = false;
         }
-    }
-
-    if (operatorClicked || equalityClicked) {
+    } else if (display.textContent.includes('.') && String(display.textContent).length > 1 && operator) {
+        display.textContent = '';
+        operatorClicked = false;
+    } else if (operatorClicked || equalityClicked) {
         if (operator && total && currentValue) {
             display.textContent = '';
-            operatorClicked = false;
+            operatorClicked = operatorClicked ? false : operatorClicked;
+            equalityClicked = equalityClicked ? false : equalityClicked;
     
             // Remove whitespaces from HTML text
             let buttonValue = button.textContent.replace(/\s+/g, '');
@@ -31,6 +33,8 @@ yellowButtons.forEach(button => button.addEventListener('click', (e) => {
             display.textContent += buttonValue;
             currentValue = +display.textContent;
             console.log(total, operator, currentValue);
+            return;
+
         }
     }
 
@@ -46,9 +50,6 @@ yellowButtons.forEach(button => button.addEventListener('click', (e) => {
         return;
     }
 
-
-
-    // Remove whitespaces from HTML text
     let buttonValue = button.textContent.replace(/\s+/g, '');
 
     display.textContent += buttonValue;
@@ -123,10 +124,10 @@ function runEquality() {
         if (result < 99999999999 || result > (-99999999999)) {
             let resultInteger = String((Math.floor(result)) * (-1));
             console.log(resultInteger)
-            result = +result.toFixed(10 - (resultInteger.length));
+            result = +result.toFixed(9 - (resultInteger.length));
         // Convert to exponential notation
         } else {
-            result = result.toExponential(4);
+            result = result.toExponential(3);
         }
     }
 
