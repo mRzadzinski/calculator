@@ -6,21 +6,47 @@ let equalityClicked = false;
 
 const display = document.querySelector('#display');
 
-// Numbers
+// Typing numbers
 const yellowButtons = document.querySelectorAll('.yellow');
 yellowButtons.forEach(button => button.addEventListener('click', (e) => {
-    if (display.textContent.length === 11) return;
+    if (display.textContent.length >= 11) return;
     if (isNaN(display.textContent)) return;
 
-    // If there is no dot on a display, type new number on display
+    // If operator was clicked, type new number on the display
     if (!display.textContent.includes('.')) {
-        // If operator was clicked, type new number on display
         if (operatorClicked || display.textContent == 0 || currentValue === undefined) {
             display.textContent = '';
+            operatorClicked = false;
         }
     }
+
+    if (operatorClicked || equalityClicked) {
+        if (operator && total && currentValue) {
+            display.textContent = '';
+            operatorClicked = false;
     
-    operatorClicked = false;
+            // Remove whitespaces from HTML text
+            let buttonValue = button.textContent.replace(/\s+/g, '');
+    
+            display.textContent += buttonValue;
+            currentValue = +display.textContent;
+            console.log(total, operator, currentValue);
+        }
+    }
+
+
+
+    // If total is defined, but operator and current are not - modify total
+    if (total && operator === undefined && currentValue === undefined) {
+        let buttonValue = button.textContent.replace(/\s+/g, '');
+
+        display.textContent += buttonValue;
+        total = +display.textContent;
+        console.log(total, operator, currentValue);
+        return;
+    }
+
+
 
     // Remove whitespaces from HTML text
     let buttonValue = button.textContent.replace(/\s+/g, '');
@@ -63,7 +89,7 @@ orangeButtons.forEach(button => button.addEventListener('click', (e) => {
     // Save operator in variable
     operator = button.textContent.replace(/\s+/g, '');
 
-    if (currentValue === undefined) return;
+    if (currentValue === undefined && total === undefined) return;
 
     // If total is empty, move current value to total
     if (total === undefined) {
@@ -93,7 +119,15 @@ function runEquality() {
     
     //Prevent overflowing display
     } else if (String(result).length  > 11) {
-        result = result.toExponential(4);
+        // Adjust position of floating point
+        if (result < 99999999999 || result > (-99999999999)) {
+            let resultInteger = String((Math.floor(result)) * (-1));
+            console.log(resultInteger)
+            result = +result.toFixed(10 - (resultInteger.length));
+        // Convert to exponential notation
+        } else {
+            result = result.toExponential(4);
+        }
     }
 
     total = result;
@@ -149,6 +183,16 @@ function backspace() {
     if (display.textContent.length === 1) {
         display.textContent = 0;
         currentValue = 0;
+        return;
+    }
+
+    if (equalityClicked === true || operatorClicked === true) {
+        operator = undefined;
+        currentValue = undefined;
+        // Delete last number
+        display.textContent = display.textContent.substring(0, display.textContent.length - 1);
+        total = +display.textContent;
+        console.log(total, operator, currentValue);
         return;
     }
 
