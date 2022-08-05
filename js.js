@@ -140,13 +140,13 @@ function runEquality() {
     }
 
     // Simplify result to avoid operations on negative exponents
-    if (+result < 0.000001) {
+    if (String(result).includes('e-')) {
         total = 0;
+        display.innerText = 0;
     } else {
         total = +result;
+        display.innerText = result;
     }
-
-    display.innerText = result;
 
     console.log(total, operator, currentValue);
 }
