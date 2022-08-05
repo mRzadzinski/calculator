@@ -9,7 +9,10 @@ const display = document.querySelector('#display');
 // Typing numbers
 const yellowButtons = document.querySelectorAll('.yellow');
 yellowButtons.forEach(button => button.addEventListener('click', (e) => {
-    if (display.textContent.length > 11) return;
+    // In case of operation on full max length total
+    if (display.textContent.length >= 11 && currentValue) {
+        return;
+    }
     if (isNaN(display.textContent)) return;
 
     // If operator was clicked, type new number on the display
@@ -115,14 +118,19 @@ function runEquality() {
     } else {
         result = +(operate(operator, total, currentValue)).toFixed(9);
     }
+
     if (isNaN(result)) {
         return;
-    
     //Prevent overflowing display
-    } else if (String(result).length  > 11) {
+    } else if (String(result).length  > 9) {
         // Adjust position of floating point
-        if (result < 99999999999 || result > (-99999999999)) {
-            let resultInteger = String((Math.floor(result)) * (-1));
+        if (result < 999999999 && result > (-999999999)) {
+            let resultInteger;
+            if (result < 0) {
+                resultInteger = String((Math.floor(result)) * (-1));
+            } else {
+                resultInteger = String((Math.floor(result)));
+            }
             console.log(resultInteger)
             result = +result.toFixed(9 - (resultInteger.length));
         // Convert to exponential notation
@@ -131,7 +139,13 @@ function runEquality() {
         }
     }
 
-    total = result;
+    // Simplify result to avoid operations on negative exponents
+    if (+result < 0.000001) {
+        total = 0;
+    } else {
+        total = +result;
+    }
+
     display.innerText = result;
 
     console.log(total, operator, currentValue);
@@ -167,8 +181,16 @@ function divide(a, b) {
 
 function inverse() {
     if (isNaN(display.innerText) || display.innerText === Infinity) return;
-    display.innerText = +display.innerText * (-1);
-    currentValue = +display.innerText;
+    // Inverse appropriate value
+    if (+display.innerText === +currentValue) {
+        display.innerText = +display.innerText * (-1);
+        currentValue = +display.innerText;
+    } else if (+display.innerText === +total) {
+        display.innerText = +display.innerText * (-1);
+        total = +display.innerText;
+    }
+    
+    console.log(total, operator, currentValue);
 }
 
 function clear() {
