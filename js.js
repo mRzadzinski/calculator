@@ -3,7 +3,6 @@ let operator;
 let currentValue = 0;
 let operatorClicked = false;
 let equalityClicked = false;
-
 const display = document.querySelector('#display');
 
 // Typing numbers
@@ -30,33 +29,24 @@ yellowButtons.forEach(button => button.addEventListener('click', (e) => {
             operatorClicked = operatorClicked ? false : operatorClicked;
             equalityClicked = equalityClicked ? false : equalityClicked;
     
-            // Remove whitespaces from HTML text
-            let buttonValue = button.textContent.replace(/\s+/g, '');
+            let buttonValue = button.textContent;
     
             display.textContent += buttonValue;
             currentValue = +display.textContent;
-            console.log(total, operator, currentValue);
             return;
         }
     }
 
-
-
-    // If total is defined, but operator and current are not - modify total
+    // Modify total if total is defined, but operator and current are not
     if (total && operator === undefined && currentValue === undefined) {
-        let buttonValue = button.textContent.replace(/\s+/g, '');
-
+        let buttonValue = button.textContent;
         display.textContent += buttonValue;
         total = +display.textContent;
-        console.log(total, operator, currentValue);
         return;
     }
-
-    let buttonValue = button.textContent.replace(/\s+/g, '');
-
+    let buttonValue = button.textContent;
     display.textContent += buttonValue;
     currentValue = +display.textContent;
-    console.log(total, operator, currentValue);
 }));
 
 const dot = document.querySelector('#dot');
@@ -64,7 +54,7 @@ dot.addEventListener('click', (e) => {
     if (display.textContent.length > 9) return;
     if (display.textContent.includes('.')) return;
 
-    let dotValue = dot.textContent.replace(/\s+/g, '');
+    let dotValue = dot.textContent;
     display.textContent += dotValue;
 });
 
@@ -83,14 +73,12 @@ inverseButton.addEventListener('click', (e) => inverse());
 const orangeButtons = document.querySelectorAll('.orange');
 orangeButtons.forEach(button => button.addEventListener('click', (e) => {
     if (isNaN(display.innerText)) return;
-    // If equality was just clicked, don't run equality when clicking operator
+    // Don't run equality when clicking operator if equality was just clicked
     if (operator && !isNaN(total) && !isNaN(currentValue) && equalityClicked === false) runEquality();
     
     equalityClicked = false;
     operatorClicked = true;
-
-    // Save operator in variable
-    operator = button.textContent.replace(/\s+/g, '');
+    operator = button.textContent;
 
     if (currentValue === undefined && total === undefined) return;
 
@@ -99,7 +87,6 @@ orangeButtons.forEach(button => button.addEventListener('click', (e) => {
         total = currentValue;
         currentValue = undefined;
     }
-    console.log(total, operator, currentValue);
 }));
 
 const equality = document.querySelector('#equality');
@@ -119,8 +106,7 @@ function runEquality() {
     }
     if (isNaN(result)) return;
 
-    result = result.toFixed(9);
-    
+    result = +result.toFixed(9);
     //Prevent overflowing display
     if (String(result).length  > 9) {
         // Adjust position of floating point
@@ -131,14 +117,12 @@ function runEquality() {
             } else {
                 resultInteger = String((Math.floor(result)));
             }
-            console.log(resultInteger)
             result = +result.toFixed(9 - (resultInteger.length));
         // Convert to exponential notation
         } else {
             result = result.toExponential(3);
         }
     }
-
     // Simplify result to avoid operations on negative exponents
     if (String(result).includes('e-')) {
         total = 0;
@@ -147,8 +131,6 @@ function runEquality() {
         total = +result;
         display.innerText = result;
     }
-
-    console.log(total, operator, currentValue);
 }
 
 function operate(operator, a, b) {
@@ -189,8 +171,6 @@ function inverse() {
         display.innerText = +display.innerText * (-1);
         total = +display.innerText;
     }
-    
-    console.log(total, operator, currentValue);
 }
 
 function clear() {
@@ -201,8 +181,10 @@ function clear() {
 }
 
 function backspace() {
-    if (isNaN(display.textContent) || display.textContent === Infinity 
-                || String(display.textContent).includes('e+')) clear();
+    if (isNaN(display.textContent) || display.textContent === Infinity || 
+        String(display.textContent).includes('e+')) {
+            clear();
+        };
     if (display.textContent.length === 1) {
         display.textContent = 0;
         currentValue = 0;
@@ -215,7 +197,6 @@ function backspace() {
         // Delete last number
         display.textContent = display.textContent.substring(0, display.textContent.length - 1);
         total = +display.textContent;
-        console.log(total, operator, currentValue);
         return;
     }
 
@@ -224,12 +205,9 @@ function backspace() {
 
     if (currentValue === undefined) {
         total = +display.textContent;
-        console.log(total, operator, currentValue);
         return;
     }
     currentValue = +display.textContent;
-
-    console.log(total, operator, currentValue);
 }
 
 // Keys functionality
@@ -257,6 +235,6 @@ window.addEventListener('keydown', (e) => {
 
 // Remove focus from clicked element
 const allElements = document.querySelectorAll('*');
-allElements.forEach(element => element.addEventListener('click', (e) => (element.blur(), 15)));
+allElements.forEach(element => element.addEventListener('click', (e) => (element.blur())));
 
 
