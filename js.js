@@ -23,19 +23,13 @@ yellowButtons.forEach(button => button.addEventListener('click', (e) => {
     } else if (display.textContent.includes('.') && String(display.textContent).length > 1 && operator) {
         display.textContent = '';
         operatorClicked = false;
-    } else if (operatorClicked || equalityClicked) {
-        if (operator && total && currentValue) {
-            display.textContent = '';
-            operatorClicked = operatorClicked ? false : operatorClicked;
-            equalityClicked = equalityClicked ? false : equalityClicked;
-    
-            let buttonValue = button.textContent;
-    
-            display.textContent += buttonValue;
-            currentValue = +display.textContent;
-            return;
+        console.log('check with dot');
+    } 
+    if (equalityClicked) {
+        equalityClicked = false;
+        clear();
+        display.textContent = '';
         }
-    }
 
     // Modify total if total is defined, but operator and current are not
     if (total && operator === undefined && currentValue === undefined) {
@@ -47,6 +41,7 @@ yellowButtons.forEach(button => button.addEventListener('click', (e) => {
     let buttonValue = button.textContent;
     display.textContent += buttonValue;
     currentValue = +display.textContent;
+    console.log(total, operator, currentValue);
 }));
 
 const dot = document.querySelector('#dot');
@@ -87,6 +82,7 @@ orangeButtons.forEach(button => button.addEventListener('click', (e) => {
         total = currentValue;
         currentValue = undefined;
     }
+    console.log(total, operator, currentValue);
 }));
 
 const equality = document.querySelector('#equality');
@@ -131,6 +127,7 @@ function runEquality() {
         total = +result;
         display.innerText = result;
     }
+    console.log(total, operator, currentValue);
 }
 
 function operate(operator, a, b) {
@@ -197,6 +194,7 @@ function backspace() {
         // Delete last number
         display.textContent = display.textContent.substring(0, display.textContent.length - 1);
         total = +display.textContent;
+        console.log(total, operator, currentValue);
         return;
     }
 
