@@ -1,5 +1,5 @@
-let total = undefined;
-let operator = undefined;
+let total;
+let operator;
 let currentValue = 0;
 let operatorClicked = false;
 let equalityClicked = false;
@@ -9,13 +9,13 @@ const display = document.querySelector('#display');
 // Typing numbers
 const yellowButtons = document.querySelectorAll('.yellow');
 yellowButtons.forEach(button => button.addEventListener('click', (e) => {
-    // In case of operation on full max length total
+    // Max number length
     if (display.textContent.length >= 11 && currentValue) {
         return;
     }
     if (isNaN(display.textContent)) return;
 
-    // If operator was clicked, type new number on the display
+    // Type new number
     if (!display.textContent.includes('.')) {
         if (operatorClicked || display.textContent == 0 || currentValue === undefined) {
             display.textContent = '';
@@ -37,7 +37,6 @@ yellowButtons.forEach(button => button.addEventListener('click', (e) => {
             currentValue = +display.textContent;
             console.log(total, operator, currentValue);
             return;
-
         }
     }
 
@@ -114,15 +113,16 @@ function runEquality() {
     let result;
     // '+' operator gets rid of unnecessary zeros at the end produced by toFixed()
     if (currentValue === undefined) {
-        result = +(operate(operator, total, total)).toFixed(9);
+        result = +operate(operator, total, total);
     } else {
-        result = +(operate(operator, total, currentValue)).toFixed(9);
+        result = +operate(operator, total, currentValue);
     }
+    if (isNaN(result)) return;
 
-    if (isNaN(result)) {
-        return;
+    result = result.toFixed(9);
+    
     //Prevent overflowing display
-    } else if (String(result).length  > 9) {
+    if (String(result).length  > 9) {
         // Adjust position of floating point
         if (result < 999999999 && result > (-999999999)) {
             let resultInteger;
