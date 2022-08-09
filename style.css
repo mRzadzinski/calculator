@@ -8,8 +8,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #050517;
-    color: #050517;
+    background-color: black;
+    color: black;
     height: 90vh;
     width: 80vw;
     min-height: 650px;
