@@ -1,7 +1,17 @@
 # Calculator
 
-It's a calculator app.
-Functionality is similar to regular one but with some simplifications.
+![interface](./img/screen.png)
+
+[LIVE](https://mrzadzinski.github.io/calculator/)
+
+Calculator app.
+
+## Features
+* The same behavior as in regular calculator (except few simplifications)
+* Input by mouse or keys
+* Limited input length to prevent display overflow
+* Exponential notation for large numbers (negative exponents reduced to 0)
+* Backspace
 
 ## Technologies
 * Javascript
