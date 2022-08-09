@@ -159,7 +159,7 @@ function divide(a, b) {
 }
 
 function inverse() {
-    if (isNaN(display.innerText) || display.innerText === Infinity) return;
+    if (isNaN(display.innerText) || display.innerText === Infinity || display.innerText.includes('e+')) return;
     // Inverse appropriate value
     if (+display.innerText === +currentValue) {
         display.innerText = +display.innerText * (-1);

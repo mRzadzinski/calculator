@@ -11,6 +11,7 @@ Calculator app.
 * Input by mouse or keys
 * Limited input length to prevent display overflow
 * Exponential notation for large numbers
+* Very low values (10^(-7)) reduced to zero 
 * Backspace
 
 ## Technologies
