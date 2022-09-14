@@ -17,7 +17,7 @@ Calculator app.
 ## Technologies
 * Javascript
 * HTML
-* CSS
+* CSS (Flexbox)
 
 ## Skills practiced
 * Javascript syntax, methods and logic
